@@ -11,24 +11,24 @@
 # **************************************************************************** #
 
 all:
-	@cd libft && make 
-	@gcc -Wall -Wextra -Werror src/server.c libft/libft.a -o server
-	@gcc -Wall -Wextra -Werror src/client.c libft/libft.a -o client
-	@echo "minitalk ready."
-	@echo "██		 ██   ██████   ██ █      ██   ██████    ████████     ████████		██			██	  ██"
-	@echo "██ ██  ██ ██	    ██     ██  █     ██     ██         ██	   ██		 ██		██			██  ██	"	
-	@echo "██	██   ██     ██     ██   █	 ██     ██		   ██	   ██		 ██		██			████	"
-	@echo "██		 ██	    ██     ██    █   ██		██		   ██      ████████████		██			████	"
-	@echo "██		 ██	    ██     ██     █  ██	    ██		   ██	   ██		 ██		██			██	██	"
-	@echo "██		 ██	  ██████   ██      █ ██   ██████       ██      ██		 ██		████████    ██	  ██"
-	@echo "░░ ▒░▓  ░░░ ▒░ ░ ░▒   ▒  ▒▒    ░░ ▒░▓  ░░░ ▒░ ░ ░▒   ▒  ▒▒    ░░ ▒░▓  ░░░ ▒░ ░ ░▒   ▒  ▒▒		"
-	@echo "                        2024/05/25 - ismherna@student.42.fr - 42 Madrid - Ismael Hernández"
+        @cd libft && make
+        @gcc -Wall -Wextra -Werror src/server.c libft/libft.a -o server
+        @gcc -Wall -Wextra -Werror src/client.c libft/libft.a -o client
+        @echo "minitalk ready."
+        @echo "██        ██   ██████   ██ █      ██   ██████    ████████    ████████      ██          ██    ██  "
+        @echo "██ ██  ██ ██     ██     ██  █     ██     ██         ██      ██        ██   ██          ██  ██    "
+        @echo "██   ██   ██     ██     ██   █     ██     ██         ██     ██        ██   ██          ████      "
+        @echo "██         ██     ██     ██    █   ██     ██         ██     ████████████   ██          ████      "
+        @echo "██         ██     ██     ██     █  ██     ██         ██     ██        ██   ██          ██  ██    "
+        @echo "██         ██   ██████   ██      █ ██   ██████       ██     ██        ██   ████████    ██    ██  "
+        @echo "░░ ▒░▓  ░░░ ▒░ ░ ░▒   ▒  ▒▒    ░░ ▒░▓  ░░░ ▒░ ░ ░▒   ▒  ▒▒    ░░ ▒░▓  ░░░ ▒░ ░ ░▒   ▒  ▒▒▒░ ░ ░▒ "
+        @echo "                        2024/05/25 - ismherna@student.42.fr - 42 Madrid - Ismael Hernández"
 clean:
-	@cd libft && make clean
-	@rm -f server
-	@rm -f client
+        @cd libft && make clean
+        @rm -f server
+        @rm -f client
 
 fclean: clean
-	@cd libft && make fclean
+        @cd libft && make fclean
 
 re: fclean all
