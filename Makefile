@@ -1,24 +1,26 @@
-SERVER = server
-CLIENT = client
-
-CFLAGS = -Wall -Werror -Wextra
-CC = gcc
-FLAGS = -Wall -Wextra -Werror -I$(LIBFT)/headers -L$(LIBFT) -l:libft.a
-
-LIBFT = libft
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ismherna <ismherna@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/06/10 16:11:30 by ismherna          #+#    #+#              #
+#    Updated: 2024/06/11 22:06:56 by ismherna         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
 all:
-	@make -s -C $(LIBFT)
-	@gcc $(FLAGS) server.c -o $(SERVER)
-	@gcc $(FLAGS) client.c -o $(CLIENT)
-	@echo "Server/Client Ready!"
+	@cd libft && make 
+	@gcc -Wall -Wextra -Werror src/server.c libft/libft.a -o server
+	@gcc -Wall -Wextra -Werror src/client.c libft/libft.a -o client
 
 clean:
-	@make clean -s -C $(LIBFT)
+	@cd libft && make clean
+	@rm -f server
+	@rm -f client
 
 fclean: clean
-	@make fclean -s -C $(LIBFT)
-	@rm -f $(SERVER) $(CLIENT)
-	@echo "Server/Client Deleted"
+	@cd libft && make fclean
 
 re: fclean all

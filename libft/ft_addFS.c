@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dup_brute_force.c                               :+:      :+:    :+:   */
+/*   ft_addFS.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ismherna <ismherna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/13 13:11:54 by ismherna          #+#    #+#             */
-/*   Updated: 2024/05/13 13:39:47 by ismherna         ###   ########.fr       */
+/*   Created: 2024/02/12 10:57:52 by ismherna          #+#    #+#             */
+/*   Updated: 2024/06/10 14:05:33 by ismherna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_dup_brute_force(int *numbers, int count)
+char	*ft_add_fs(char *start, char c)
 {
-	int		i;
-	int		j;
+	size_t	i;
+	char	*tmp;
 
+	tmp = malloc(ft_strlen(start) + 2);
+	if (tmp == NULL)
+		return (NULL);
 	i = 0;
-	while (i < count)
+	while (start[i] != '\0')
 	{
-		j = i + 1;
-		while (j < count)
-		{
-			if (numbers[i] == numbers[j])
-				return (1);
-			j++;
-		}
+		tmp[i] = start[i];
 		i++;
 	}
-	return (0);
+	tmp[i] = c;
+	tmp[i + 1] = '\0';
+	free(start);
+	return (tmp);
 }

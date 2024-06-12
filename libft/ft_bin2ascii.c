@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_insert_sort.c                                   :+:      :+:    :+:   */
+/*   ft_bin2ascii.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ismherna <ismherna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/13 13:05:12 by ismherna          #+#    #+#             */
-/*   Updated: 2024/05/13 13:05:53 by ismherna         ###   ########.fr       */
+/*   Created: 2024/06/11 21:21:42 by ismherna          #+#    #+#             */
+/*   Updated: 2024/06/12 00:41:13 by ismherna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_insert_sort(int array[], int n)
+void	ft_bin2ascii(char *s)
 {
-	int	element;
-	int	i;
-	int	j;
+	int				pow;
+	unsigned char	c;
+	size_t			i;
 
-	i = 1;
-	while (i < n)
+	pow = 1;
+	c = 0;
+	i = ft_strlen(s) - 1;
+	while (i + 1 != 0)
 	{
-		element = array[i];
-		j = i - 1;
-		while (j >= 0 && array[j] > element)
-		{
-			array[j + 1] = array[j];
-			j = j - 1;
-		}
-		array[j + 1] = element;
-		i++;
+		c += pow * (s[i] - '0');
+		pow *= 2;
+		i--;
 	}
+	write(1, &c, 1);
 }

@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_2Xarray.c                                  :+:      :+:    :+:   */
+/*   ft_char2bin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ismherna <ismherna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/13 12:50:22 by ismherna          #+#    #+#             */
-/*   Updated: 2024/05/13 13:39:27 by ismherna         ###   ########.fr       */
+/*   Created: 2024/02/27 09:35:46 by ismherna          #+#    #+#             */
+/*   Updated: 2024/06/10 14:58:29 by ismherna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_free_2Xarray(char **arr)
+void	ft_char2bin(unsigned char c, char *ret, size_t *j)
 {
-	size_t	i;
+	int		k;
 
-	i = 0;
-	if (arr)
+	k = 7;
+	while (k >= 0)
 	{
-		while (arr && arr[i])
-		{
-			if (arr[i] != NULL)
-			{
-				free(arr[i]);
-				arr[i] = NULL;
-			}
-			i++;
-		}
-		free(arr);
-		arr = NULL;
+		if (c & (1 << k))
+			ret[*j] = '1';
+		else
+			ret[*j] = '0';
+		(*j)++;
+		k--;
 	}
 }

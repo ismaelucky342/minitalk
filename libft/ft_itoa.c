@@ -3,70 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ismherna <ismherna@student.42madrid>       +#+  +:+       +#+        */
+/*   By: ismherna <ismherna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 10:57:52 by ismherna          #+#    #+#             */
-/*   Updated: 2024/02/19 13:19:36 by ismherna         ###   ########.fr       */
+/*   Updated: 2024/06/12 00:37:49 by ismherna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_digit_counter(int n)
+static int	ft_get_size(long *ln)
 {
-	int		count;
+	int	size;
+	int	i;
 
-	count = 0;
-	if (n == 0)
-		return (1);
-	if (n < 0)
-		count++;
-	while (n != 0)
+	size = 1;
+	i = *ln;
+	while (i / 10 != 0)
 	{
-		n /= 10;
-		count++;
+		size++;
+		i /= 10;
 	}
-	return (count);
+	if (*ln < 0)
+	{
+		*ln *= -1;
+		size++;
+	}
+	return (size);
 }
 
 char	*ft_itoa(int n)
 {
-	int		ncpy;
+	char	*c;
+	int		size;
 	int		i;
-	char	*str;
+	long	ln;
 
-	if (n == -2147483648)
-		return (ft_strdup("-2147483648"));
-	ncpy = n;
-	if (n < 0)
-		ncpy = -n;
-	i = ft_digit_counter(n);
-	str = malloc(sizeof(char) * (i + 1));
-	if (!str)
+	ln = n;
+	size = ft_get_size(&ln);
+	c = malloc(size + 1);
+	if (c == NULL)
 		return (NULL);
-	str[i] = '\0';
-	i--;
-	if (ncpy == 0)
-		str[i] = '0';
-	while (ncpy > 0)
+	c[size] = '\0';
+	c[0] = '-';
+	if (n == 0)
+		c[0] = '0';
+	i = 1;
+	while (i < size + 1 && ln != 0)
 	{
-		str[i--] = (ncpy % 10) + '0';
-		ncpy /= 10;
+		c[size - i] = (ln % 10) + '0';
+		ln /= 10;
+		i++;
 	}
-	if (n < 0)
-		str[0] = '-';
-	return (str);
+	return (c);
 }
-/*int main()
-{
-    int n = -2147483648;
-    char *str = ft_itoa (n);
-
-    if (str == NULL)
-    printf("Error al convertir el número %d a cadena.\n",(n));
-
-    printf("%s\n", str);
-    free(str);
-
-    return (0);
-}*/
