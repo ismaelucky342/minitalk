@@ -6,45 +6,53 @@
 /*   By: ismherna <ismherna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:04:52 by ismherna          #+#    #+#             */
-/*   Updated: 2024/06/12 11:53:55 by ismherna         ###   ########.fr       */
+/*   Updated: 2024/06/18 03:25:00 by ismherna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minitalk.h"
+#include <signal.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
-static void	ft_confirm(int sig);
+static void	ft_confirm(int sig, siginfo_t *info, void *context);
 
 int	main(void)
 {
+	struct sigaction	sa;
+
 	ft_printf("Server PID: %u\n", getpid());
-	while (1 == 1)
+	sa.sa_flags = SA_SIGINFO;
+	sa.sa_sigaction = ft_confirm;
+	sigemptyset(&sa.sa_mask);
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
+	while (1)
 	{
-		signal(SIGUSR1, ft_confirm);
-		signal(SIGUSR2, ft_confirm);
 		pause();
 	}
 	return (0);
 }
 
-static void	ft_confirm(int sig)
+static void	ft_confirm(int sig, siginfo_t *info, void *context)
 {
-	static char	*bits;
-	static int	bitcount;
+	static char	bits[9] = {0};
+	static int	bitcount = 0;
+	char		c;
 
-	bitcount++;
-	if (bits == NULL)
-	{
-		bits = ft_strdup("");
-		bitcount = 1;
-	}
+	(void)context;
 	if (sig == SIGUSR2)
-		bits = ft_add_fs(bits, '0');
-	else
-		bits = ft_add_fs(bits, '1');
+		bits[bitcount] = '0';
+	else if (sig == SIGUSR1)
+		bits[bitcount] = '1';
+	bitcount++;
 	if (bitcount == 8)
 	{
-		ft_bin2ascii(bits);
-		free(bits);
-		bits = NULL;
+		bits[8] = '\0';
+		c = (char)strtol(bits, NULL, 2);
+		ft_printf("%c", c);
+		bitcount = 0;
 	}
+	kill(info->si_pid, SIGUSR1);
 }
