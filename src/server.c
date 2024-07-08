@@ -1,58 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ismherna <ismherna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/10 15:04:52 by ismherna          #+#    #+#             */
-/*   Updated: 2024/06/18 03:25:00 by ismherna         ###   ########.fr       */
+/*   Created: 2024/07/03 20:16:42 by ismherna          #+#    #+#             */
+/*   Updated: 2024/07/03 23:19:34 by ismherna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minitalk.h"
-#include <signal.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
 
-static void	ft_confirm(int sig, siginfo_t *info, void *context);
+static void	ft_confirm(int sig);
 
 int	main(void)
 {
-	struct sigaction	sa;
-
 	ft_printf("Server PID: %u\n", getpid());
-	sa.sa_flags = SA_SIGINFO;
-	sa.sa_sigaction = ft_confirm;
-	sigemptyset(&sa.sa_mask);
-	sigaction(SIGUSR1, &sa, NULL);
-	sigaction(SIGUSR2, &sa, NULL);
-	while (1)
+	while (1 == 1)
 	{
+		signal(SIGUSR1, ft_confirm);
+		signal(SIGUSR2, ft_confirm);
 		pause();
 	}
 	return (0);
 }
 
-static void	ft_confirm(int sig, siginfo_t *info, void *context)
+static void	ft_confirm(int sig)
 {
-	static char	bits[9] = {0};
-	static int	bitcount = 0;
-	char		c;
+	static char	*bits;
+	static int	bitcount;
 
-	(void)context;
-	if (sig == SIGUSR2)
-		bits[bitcount] = '0';
-	else if (sig == SIGUSR1)
-		bits[bitcount] = '1';
 	bitcount++;
+	if (bits == NULL)
+	{
+		bits = ft_strdup("");
+		bitcount = 1;
+	}
+	if (sig == SIGUSR2)
+		bits = ft_add_fs(bits, '0');
+	else
+		bits = ft_add_fs(bits, '1');
 	if (bitcount == 8)
 	{
-		bits[8] = '\0';
-		c = (char)strtol(bits, NULL, 2);
-		ft_printf("%c", c);
-		bitcount = 0;
+		ft_bin2ascii(bits);
+		free(bits);
+		bits = NULL;
 	}
-	kill(info->si_pid, SIGUSR1);
 }
+
