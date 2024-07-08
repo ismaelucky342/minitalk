@@ -1,6 +1,7 @@
 # minitalk 
-Minitalk is designed to learn and practice interprocess communication on Unix systems through the use of signals. The project is made up of two programs: a client and a server. The client sends messages to the server, which receives and displays them.
+![image](https://github.com/ismaelucky342/minitalk/assets/153450550/29b8a974-933a-467c-b5fc-48a22ae45a2f)
 
+Minitalk is designed to learn and practice interprocess communication on Unix systems through the use of signals. The project is made up of two programs: a client and a server. The client sends messages to the server, which receives and displays them.
 ### Project Objectives
 
 - Learn to use signals in Unix (SIGUSR1 and SIGUSR2).
@@ -18,9 +19,14 @@ Minitalk is designed to learn and practice interprocess communication on Unix sy
 ```
 $> make all
 ```
-#### Start the Server:
+#### Compiling bonus: 
+```
+$> make bonus
+```
+#### Start the Server/Server_bonus:
 ```
 $> ./server
+$> ./server_bonus
 ```
 This will display the server's PID, which you will need so the client can send messages to it.
 
@@ -28,7 +34,14 @@ This will display the server's PID, which you will need so the client can send m
 ```
 $> ./client <SERVER_PID> "Your message here"
 ```
-
+#### Bonus Server part: 
+```
+$> ./server_bonus
+```
+#### Bonus Client part:
+```
+$> ./client <SERVER_PID> "Your message here"
+```
 # Implementation Details
 - Signal Handling: The server and client use SIGUSR1 and SIGUSR2 signals to transmit data. Each signal can represent a bit, allowing the transmission of characters bit by bit.
 - Synchronization: The client waits for an acknowledgment from the server after sending each bit to ensure that the message is correctly received.
