@@ -31,13 +31,23 @@ CFLAGS = -Wall -Wextra -Werror
 
 # Regla para compilar la parte obligatoria
 all: $(SERVER) $(CLIENT)
+	@echo"minitalk ready"
+	@echo " _____ ______    ___   ________    ___   _________   ________   ___        ___  __		"
+	@echo "|\   _ \  _   \ |\  \ |\   ___  \ |\  \ |\___   ___\|\   __  \ |\  \      |\  \|\  \		"
+	@echo "\ \  \\\__\ \  \\ \  \\ \  \\ \  \\ \  \\|___ \  \_|\ \  \|\  \\ \  \     \ \  \/  /|_		"
+	@echo " \ \  \\|__| \  \\ \  \\ \  \\ \  \\ \  \    \ \  \  \ \   __  \\ \  \     \ \   ___  \		"
+	@echo "  \ \  \    \ \  \\ \  \\ \  \\ \  \\ \  \    \ \  \  \ \  \ \  \\ \  \____ \ \  \\ \  \		"
+	@echo "   \ \__\    \ \__\\ \__\\ \__\\ \__\\ \__\    \ \__\  \ \__\ \__\\ \_______\\ \__\\ \__\	"
+	@echo "    \|__|     \|__| \|__| \|__| \|__| \|__|     \|__|   \|__|\|__| \|_______| \|__| \|__|	"
+	@echo "											 		"
+	@echo "				      2024/07/03 - ismherna@student.42.fr - 42 Madrid - Ismael Hernández"
 
 $(SERVER): $(SRC_SERVER) $(LIBFT)
 	$(CC) $(CFLAGS) $^ -o $@
 
 $(CLIENT): $(SRC_CLIENT) $(LIBFT)
 	$(CC) $(CFLAGS) $^ -o $@
-
+	
 # Regla para compilar los bonus
 bonus: $(SERVER_BONUS) $(CLIENT_BONUS)
 
